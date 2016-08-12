@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/face_it'
+
+FaceIt::CLI.new.call

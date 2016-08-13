@@ -3,6 +3,13 @@ class FaceIt::Profile
   attr_accessor :name, :smile, :gender, :age, :moustache, :beard, :sideburns, :glasses, :emoji
 
   @@all = []
+
+  ANIMALS = ["dog","wolf","mouse","cat","hamster","rabbit","frog","koala","bear","pig","cow","dragon","monkey","horse",
+    "sheep","elephant","panda_face","penguin","bird","chicken","snake","turtle","bee","dolphin","whale", "fish","leopard"]
+
+  FOODS = ["pizza","hamburger","fries","spaghetti","fried_shrimp","sushi","poultry_leg","meat_on_bone","rice_ball","rice_cracker",
+    "rice","ramen","stew","bread","doughnut","icecream","cake","cookie","chocolate_bar"]
+
   def initialize(profile_hash)
     profile_hash.each do |key, value|
       self.send("#{key}=", value)
@@ -87,6 +94,14 @@ class FaceIt::Profile
     @@all
   end
 
+  def self.all_animals
+    ANIMALS
+  end
+
+  def self.all_foods
+    FOODS
+  end
+
   def self.find_by_name(input)
     all.detect{|profile| profile.name.downcase == input.downcase}
   end
@@ -99,6 +114,10 @@ class FaceIt::Profile
       end
     end
     result
+  end
+
+  def self.delete_profile(profile)
+    all.delete(profile)
   end
 
 

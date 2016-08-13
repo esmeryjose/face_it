@@ -11,25 +11,28 @@ class FaceIt::Table
     table :border => false do
       row :color => 'blue' do
         column "#{Emoji.find_by_alias("laughing").raw} #{Emoji.find_by_alias("stuck_out_tongue_closed_eyes").raw}  WELCOME TO FACEIT #{Emoji.find_by_alias("grin").raw} #{Emoji.find_by_alias("joy").raw}",
-        :width => 145, :color => 'cyan', align: 'center', :bold => true
+        :width => 155, :color => 'cyan', align: 'center', :bold => true
       end
     end
   end
 
   def self.welcome_follow_up_display
+    puts"\n \n"
     table :border => true do
       row :color => 'light_blue' do
-        column "LIST PROFILES", :width => 70, :color => 'cyan', align: 'center'
-        column "EXIT", :width => 70, :color => 'red', align: 'center'
+        column "LIST PROFILES", :width => 50, :color => 'cyan', align: 'center'
+        column "CREATE PROFILE (work in progress...)", :width => 50, :color => 'cyan', align: 'center'
+        column "EXIT", :width => 50, :color => 'red', align: 'center'
       end
     end
     puts"\n \n"
   end
 
   def self.profiles_prompt_display(profiles)
+    puts"\n \n"
     table :border => false do
       row :color => 'light_blue' do
-        column "WHICH PROFILE DO YOU WANT TO SEE?", :width => 190, :color => 'cyan', align: 'center'
+        column "WHICH PROFILE DO YOU WANT TO SEE?", :width => 190, :color => 'cyan', align: 'left'
       end
     end
     table :border => true do
@@ -69,7 +72,34 @@ class FaceIt::Table
         column "FaceIt thinks #{profile.name} is #{profile.age}!", :width => 80, :color => 'green', align: 'left'
       end
     end
-    puts"\n \n \n"
+  end
+
+  def self.profile_options
+    table :border => true do
+      row :color => 'light_blue' do
+        column "EDIT", :width => 40, :color => 'green', align: 'center'
+        column "DELETE", :width => 40, :color => 'red', align: 'center'
+        column "BACK", :width => 40, :color => 'red', align: 'center'
+      end
+    end
+    puts"\n \n"
+  end
+
+  def self.edit_options
+    table :border => false do
+      row :color => 'light_blue' do
+        column "WHAT WOULD YOU LIKE TO EDIT?", :width => 170, :color => 'cyan', align: 'left'
+      end
+    end
+    table :border => true do
+      row :color => 'light_blue' do
+        column "ADD FAVORITE ANIMAL", :width => 40, :color => 'cyan', align: 'center'
+        column "ADD FAVORITE FOOD", :width => 40, :color => 'cyan', align: 'center'
+        column "QUOTE", :width => 40, :color => 'cyan', align: 'center'
+        column "BACK", :width => 40, :color => 'red', align: 'center'
+      end
+    end
+    puts"\n \n"
   end
 
   def self.table_smile(profile)

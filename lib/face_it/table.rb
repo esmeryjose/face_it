@@ -22,7 +22,7 @@ class FaceIt::Table
       row :color => 'light_blue' do
         column "LIST PROFILES", :width => 50, :color => 'cyan', align: 'center'
         column "CREATE PROFILE (work in progress...)", :width => 50, :color => 'cyan', align: 'center'
-        column "EXIT", :width => 50, :color => 'red', align: 'center'
+        column "EXIT", :width => 50, :color => 'white', align: 'center'
       end
     end
     puts"\n \n"
@@ -32,7 +32,7 @@ class FaceIt::Table
     puts"\n \n"
     table :border => false do
       row :color => 'light_blue' do
-        column "WHICH PROFILE DO YOU WANT TO SEE?", :width => 190, :color => 'cyan', align: 'left'
+        column "  WHICH PROFILE DO YOU WANT TO SEE?", :width => 190, :color => 'cyan', align: 'left'
       end
     end
     table :border => true do
@@ -40,18 +40,20 @@ class FaceIt::Table
         profiles.each do |profile|
           column profile.name, :width => 25, :color => 'cyan', :align => 'center'
         end
-        column "back", :width => 25, :color => 'red', :align => 'center'
+        column "back", :width => 25, :color => 'white', :align => 'center'
       end
     end
     puts"\n \n"
   end
 
   def self.profiles_display(profile)
+    # binding.pry
     puts"\n \n \n"
     table :border => false do
       row :color => 'light_blue' do
         column "#{Emoji.find_by_alias(profile.emoji).raw}   #{profile.name.upcase} #{Emoji.find_by_alias(profile.emoji).raw}", :width => 80, :color => 'green', align: 'center'
       end
+      table_profile_quote(profile) if profile.quote
     end
     table :border => true do
        # binding.pry
@@ -64,6 +66,10 @@ class FaceIt::Table
       table_sideburns(profile) if profile.user_sideburns
 
       table_glasses(profile) if profile.user_glasses
+
+      table_favorite_animal(profile) if profile.favorite_animal
+
+      table_favorite_food(profile) if profile.favorite_food
 
       row :color => 'light_blue' do
         column "#{profile.name} is a #{profile.gender}", :width => 80, :color => 'green', align: 'left'
@@ -79,24 +85,25 @@ class FaceIt::Table
       row :color => 'light_blue' do
         column "EDIT", :width => 40, :color => 'green', align: 'center'
         column "DELETE", :width => 40, :color => 'red', align: 'center'
-        column "BACK", :width => 40, :color => 'red', align: 'center'
+        column "BACK", :width => 40, :color => 'white', align: 'center'
       end
     end
     puts"\n \n"
   end
 
   def self.edit_options
+    puts"\n \n"
     table :border => false do
       row :color => 'light_blue' do
-        column "WHAT WOULD YOU LIKE TO EDIT?", :width => 170, :color => 'cyan', align: 'left'
+        column "  WHAT WOULD YOU LIKE TO EDIT?", :width => 170, :color => 'cyan', align: 'left'
       end
     end
     table :border => true do
       row :color => 'light_blue' do
         column "ADD FAVORITE ANIMAL", :width => 40, :color => 'cyan', align: 'center'
         column "ADD FAVORITE FOOD", :width => 40, :color => 'cyan', align: 'center'
-        column "QUOTE", :width => 40, :color => 'cyan', align: 'center'
-        column "BACK", :width => 40, :color => 'red', align: 'center'
+        column "ADD QUOTE", :width => 40, :color => 'cyan', align: 'center'
+        column "BACK", :width => 40, :color => 'white', align: 'center'
       end
     end
     puts"\n \n"
@@ -139,5 +146,23 @@ class FaceIt::Table
     end
   end
 
+  def self.table_profile_quote(profile)
+    row :color => 'light_blue' do
+      column "#{profile.quote}", :width => 80, :color => 'green', align: 'center'
+    end
+  end
 
+  def self.table_favorite_animal(profile)
+    # binding.pry
+    row :color => 'light_blue' do
+      column "#{profile.name}'s favorite animal is #{profile.favorite_animal.gsub("_"," ")}  #{Emoji.find_by_alias(profile.favorite_animal).raw}", :width => 80, :color => 'green', align: 'left'
+    end
+  end
+
+  def self.table_favorite_food(profile)
+    # binding.pry
+    row :color => 'light_blue' do
+      column "#{profile.name}'s favorite food is #{profile.favorite_food.gsub("_"," ")} #{Emoji.find_by_alias(profile.favorite_food).raw}", :width => 80, :color => 'green', align: 'left'
+    end
+  end
 end

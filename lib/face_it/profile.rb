@@ -1,6 +1,9 @@
+
 class FaceIt::Profile
 
-  attr_accessor :name, :smile, :gender, :age, :moustache, :beard, :sideburns, :glasses, :emoji
+  attr_accessor :name, :smile, :gender, :age, :moustache, :beard,
+                :sideburns, :glasses, :emoji, :favorite_animal,
+                :favorite_food, :quote
 
   @@all = []
 
@@ -79,10 +82,10 @@ class FaceIt::Profile
   end
 
   def set_imoji_female
-    if glasses == "sunglasses"
-      self.emoji = glasses.downcase
-    elsif smile.between?(0.3,0.5)
+    if smile.between?(0.3,0.5)
       self.emoji = "information_desk_person"
+    elsif glasses == "Sunglasses"
+      self.emoji = glasses.downcase
     elsif smile.between?(0.5,1.0)
       self.emoji = "smile"
     else
@@ -90,8 +93,21 @@ class FaceIt::Profile
     end
   end
 
+  def set_quote(quote)
+    quote = "\"#{quote.capitalize}\""
+    self.quote = quote
+  end
+
   def self.all
     @@all
+  end
+
+  def self.include_animal?(input)
+    ANIMALS.include?(input)
+  end
+
+  def self.include_food?(input)
+    FOODS.include?(input)
   end
 
   def self.all_animals
@@ -102,8 +118,20 @@ class FaceIt::Profile
     FOODS
   end
 
-  def self.find_by_name(input)
-    all.detect{|profile| profile.name.downcase == input.downcase}
+  def self.set_favorite_animal(input)
+    selected_profile.favorite_animal = input
+  end
+
+  def self.set_favorite_food(input)
+    selected_profile.favorite_food = input
+  end
+
+  def self.find_and_select(input)
+    @selected_profile = all.detect{|profile| profile.name.downcase == input.downcase}
+  end
+
+  def self.selected_profile
+    @selected_profile
   end
 
   def self.includes_name(input)
@@ -119,6 +147,5 @@ class FaceIt::Profile
   def self.delete_profile(profile)
     all.delete(profile)
   end
-
 
 end

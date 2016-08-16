@@ -5,3 +5,4 @@ source 'https://rubygems.org'
 gem "gemoji"
 gem "prybaby"
 gem 'command_line_reporter', '>=3.0'
+gem 'launchy'

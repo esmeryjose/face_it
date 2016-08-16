@@ -3,6 +3,7 @@ require 'pry'
 require 'gemoji'
 require 'colorize'
 require 'paint'
+require 'launchy'
 
 class FaceIt::CLI
 
@@ -76,6 +77,11 @@ class FaceIt::CLI
       when "edit"
         FaceIt::Table.edit_options
         edit_profile
+      when "profile picture"
+        Launchy.open("#{FaceIt::Profile.selected_profile.url}")
+        # system("open", "#{FaceIt::Profile.selected_profile.url}")
+        FaceIt::Table.profile_options
+        profile_options
       when "delete"
         puts"\n \n"
         puts"ARE YOU SURE?!?!?!".colorize(:red)+" (If this profile is deleted, you will not be able to get it back)".colorize(:cyan)
@@ -94,11 +100,11 @@ class FaceIt::CLI
     input.downcase!
 
     case input
-      when "add favorite animal"
-        puts "\n\nWHAT IS YOUR FAVORITE ANIMAL? (type \"list animals\" to list all the animals available)".colorize(:cyan)
+      when "favorite animal"
+        puts "\n\nWHAT IS YOUR FAVORITE ANIMAL? (type \"list animals\" to list all the animals available or type \"back\" to return to profile edit)".colorize(:cyan)
         add_favorite_animal
-      when "add favorite food"
-        puts "\n\nWHAT IS YOUR FAVORITE FOOD? (type \"list foods\" to list all the foods available)".colorize(:cyan)
+      when "favorite food"
+        puts "\n\nWHAT IS YOUR FAVORITE FOOD? (type \"list foods\" to list all the foods available or type \"back\" to return to profile edit)".colorize(:cyan)
         add_favorite_food
       when "add quote"
         add_quote
@@ -137,6 +143,9 @@ class FaceIt::CLI
     elsif FaceIt::Profile.include_animal?(input)
       FaceIt::Profile.set_favorite_animal(input)
       display_profile
+    elsif input== "back"
+      FaceIt::Table.edit_options
+      edit_profile
     else
       puts"Animal not recognized, pick another one or type \"list animals\" to see our collection".colorize(:cyan)
       add_favorite_animal
@@ -154,6 +163,9 @@ class FaceIt::CLI
     elsif FaceIt::Profile.include_food?(input)
       FaceIt::Profile.set_favorite_food(input)
       display_profile
+    elsif input == "back"
+      FaceIt::Table.edit_options
+      edit_profile
     else
       puts"Food not recognized, pick another one or type \"list foods\" to see our collection".colorize(:cyan)
       add_favorite_food
@@ -161,10 +173,15 @@ class FaceIt::CLI
   end
 
   def add_quote
-    puts "\n\nWHAT WILL YOUR QUOTE SAY?".colorize(:cyan)
+    puts "\n\nWHAT WILL YOUR QUOTE SAY? (type \"back\" to return to profile edit)".colorize(:cyan)
     input = gets.strip
-    FaceIt::Profile.selected_profile.set_quote(input)
-    display_profile
+    if input == "back"
+      FaceIt::Table.edit_options
+      edit_profile
+    else
+      FaceIt::Profile.selected_profile.set_quote(input)
+      display_profile
+    end
   end
 
   def list_animals

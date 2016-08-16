@@ -37,8 +37,9 @@ class FaceIt::API
 
 
   def api_response_converter(response)
+    # binding.pry
+    profile_hash[:url] = @url
     response[0].each do |faceAttributes, attributes|
-
         if faceAttributes == "faceAttributes"
           attributes.each do |attribute,value|
             if attribute == "facialHair"
@@ -53,6 +54,7 @@ class FaceIt::API
           end
         end
     end
+    # binding.pry
   end
 
 

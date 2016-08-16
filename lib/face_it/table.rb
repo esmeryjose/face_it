@@ -84,6 +84,7 @@ class FaceIt::Table
     table :border => true do
       row :color => 'light_blue' do
         column "EDIT", :width => 40, :color => 'green', align: 'center'
+        column "PROFILE PICTURE", :width => 40, :color => 'green', align: 'center'
         column "DELETE", :width => 40, :color => 'red', align: 'center'
         column "BACK", :width => 40, :color => 'white', align: 'center'
       end
@@ -100,8 +101,8 @@ class FaceIt::Table
     end
     table :border => true do
       row :color => 'light_blue' do
-        column "ADD FAVORITE ANIMAL", :width => 40, :color => 'cyan', align: 'center'
-        column "ADD FAVORITE FOOD", :width => 40, :color => 'cyan', align: 'center'
+        column "FAVORITE ANIMAL", :width => 40, :color => 'cyan', align: 'center'
+        column "FAVORITE FOOD", :width => 40, :color => 'cyan', align: 'center'
         column "ADD QUOTE", :width => 40, :color => 'cyan', align: 'center'
         column "BACK", :width => 40, :color => 'white', align: 'center'
       end
@@ -155,7 +156,7 @@ class FaceIt::Table
   def self.table_favorite_animal(profile)
     # binding.pry
     row :color => 'light_blue' do
-      column "#{profile.name}'s favorite animal is #{profile.favorite_animal.gsub("_"," ")}  #{Emoji.find_by_alias(profile.favorite_animal).raw}", :width => 80, :color => 'green', align: 'left'
+      column "#{profile.name}'s favorite animal is a #{profile.favorite_animal.gsub("_"," ")}  #{Emoji.find_by_alias(profile.favorite_animal).raw}", :width => 80, :color => 'green', align: 'left'
     end
   end
 

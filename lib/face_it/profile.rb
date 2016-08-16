@@ -3,7 +3,7 @@ class FaceIt::Profile
 
   attr_accessor :name, :smile, :gender, :age, :moustache, :beard,
                 :sideburns, :glasses, :emoji, :favorite_animal,
-                :favorite_food, :quote
+                :favorite_food, :quote ,:url
 
   @@all = []
 
